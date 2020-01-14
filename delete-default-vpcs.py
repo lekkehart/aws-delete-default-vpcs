@@ -88,8 +88,8 @@ def delete_default_subnets(ec2, vpc_id):
 
 def delete_vpc_dependencies(ec2_resource, vpc_id):
     """ Delete the VPC dependencies"""
-    delete_igw(ec2_resource, vpc_id)
     delete_default_subnets(ec2_resource, vpc_id)
+    delete_igw(ec2_resource, vpc_id)
 
 
 def delete_vpc(ec2_resource, vpc_id):
@@ -122,16 +122,16 @@ def main():
             exit(1)
         else:
             for default_vpc in default_vpcs:
-                log.info('~' * 75)
+                log.info('.' * 75)
                 log.info("Default VPC Id: {}".format(default_vpc))
                 delete_vpc(ec2_resource, default_vpc)
 
 
-def print_note():
+def print_note(msg):
     log.info('!' * 75)
     log.info('!' * 75)
     log.info('!' * 75)
-    log.info('NOTE!!! Running a DRY RUN only')
+    log.info(msg)
     log.info('!' * 75)
     log.info('!' * 75)
     log.info('!' * 75)
@@ -139,9 +139,13 @@ def print_note():
 
 if __name__ == "__main__":
     if DRY_RUN:
-        print_note()
+        print_note('START - Running a DRY RUN only')
+    else:
+        print_note('START')
 
     main()
 
     if DRY_RUN:
-        print_note()
+        print_note('END - Running a DRY RUN only')
+    else:
+        print_note('END')
