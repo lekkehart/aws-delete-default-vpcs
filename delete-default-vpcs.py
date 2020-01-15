@@ -8,9 +8,8 @@ import boto3
 # initialise logger
 from botocore.exceptions import ClientError
 
-if os.environ.get('DRY_RUN') == 'True':
-    DRY_RUN = True
-else:
+DRY_RUN = True
+if os.environ.get('DRY_RUN') == 'False':
     DRY_RUN = False
 
 log = logging.getLogger(__name__)

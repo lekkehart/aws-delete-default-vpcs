@@ -5,13 +5,13 @@ see [Compliance Standards: CIS AWS Foundations](https://docs.aws.amazon.com/secu
 
 A simple fix is to delete the default VPCs in all regions when setting up a new AWS account.
 Below script does this. It will also delete all dependencies of the default VPCs, i.e.: 
-* default subnets.
+* Default subnets.
 * IGWs.
 
 ## Run
 
-There are some command line options when running the script:
-* Run in _**DRY RUN**_ mode, i.e. it will show which resources it would delete.
+There are optional command line options for running the script:
+* Run in `DRY RUN` mode, i.e. it will show which resources it would delete.
 * Specify the AWS profile to use. 
 
 ```
@@ -22,7 +22,7 @@ Usage: ./run.sh [-hd] [-p aws_profile]
     -p aws_profile     specify the AWS profile (by default AWS profile 'default').
 ```
 
-By default, the script will run in NON-DRY-RUN mode using AWS profile `default`.
+By default, the script will run in `NON-DRY-RUN` mode using AWS profile `default`.
 
 ```
 ./run.sh
