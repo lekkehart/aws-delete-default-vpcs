@@ -41,19 +41,19 @@ shift $((OPTIND -1))
 ############################################################
 docker build -t aws-delete-default-vpcs .
 
-# Creation of directory 'tmp-workaround' is a workaround for running under WSL (Windows Subsystem for Linux).
+# Creation of directory 'tmp-workaround-for-wsl' is a workaround for running under WSL (Windows Subsystem for Linux).
 # This is required due to mapping of volumes for docker not working for directories unless they are located
 # on the C: drive.
-rm -rf $PWD/tmp-workaround
-mkdir $PWD/tmp-workaround
-cp $HOME/.aws/credentials $PWD/tmp-workaround/.
-cp $HOME/.aws/config $PWD/tmp-workaround/.
+rm -rf $PWD/tmp-workaround-for-wsl
+mkdir $PWD/tmp-workaround-for-wsl
+cp $HOME/.aws/credentials $PWD/tmp-workaround-for-wsl/.
+cp $HOME/.aws/config $PWD/tmp-workaround-for-wsl/.
 
 docker run -it \
-  -v $PWD/tmp-workaround:/root/.aws:ro \
+  -v $PWD/tmp-workaround-for-wsl:/root/.aws:ro \
   -e AWS_PROFILE=$AWS_PROFILE \
   -e AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION \
   -e DRY_RUN=$DRY_RUN \
   -t aws-delete-default-vpcs
 
-rm -rf $PWD/tmp-workaround
+rm -rf $PWD/tmp-workaround-for-wsl
