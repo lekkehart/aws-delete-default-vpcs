@@ -1,13 +1,17 @@
 #!/usr/bin/env python
 import json
 import logging
+import os
 import sys
 
 import boto3
 # initialise logger
 from botocore.exceptions import ClientError
 
-DRY_RUN = True
+if os.environ.get('DRY_RUN') == 'True':
+    DRY_RUN = True
+else:
+    DRY_RUN = False
 
 log = logging.getLogger(__name__)
 out_hdlr = logging.StreamHandler(sys.stdout)
@@ -139,13 +143,13 @@ def print_note(msg):
 
 if __name__ == "__main__":
     if DRY_RUN:
-        print_note('START - Running a DRY RUN only')
+        print_note('START - DRY-RUN only!')
     else:
         print_note('START')
 
     main()
 
     if DRY_RUN:
-        print_note('END - Running a DRY RUN only')
+        print_note('END - DRY-RUN only!')
     else:
         print_note('END')

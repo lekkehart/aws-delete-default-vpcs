@@ -8,36 +8,27 @@ Below script does this. It will also delete all dependencies of the default VPCs
 * default subnets.
 * IGWs.
 
-## Prerequisites
-
-In order to connect to a certain AWS account please provide the following environment variables:
-
-```
-export AWS_DEFAULT_REGION=<...>
-export AWS_SECRET_ACCESS_KEY=<...>
-export AWS_ACCESS_KEY_ID=<...>
-```
-
 ## Run
 
-### Make a DRY-RUN
+There are some command line options when running the script:
+* Run in _**DRY RUN**_ mode, i.e. it will show which resources it would delete.
+* Specify the AWS profile to use. 
 
-By default the script will only do a _**DRY RUN**_, i.e. it will show which resources it would delete.
+```
+./run.sh -h
+Usage: ./run.sh [-hd] [-p aws_profile]
+    -h                 display this help message.
+    -d                 run in DRY-RUN mode.
+    -p aws_profile     specify the AWS profile (by default AWS profile 'default').
+```
 
-Run the script by means of:
+By default, the script will run in NON-DRY-RUN mode using AWS profile `default`.
 
 ```
 ./run.sh
 ```
 
-### Make a NON-DRY-RUN
-
-If the script is to be run for real then change the flag `DRY_RUN` to `False` 
-in [delete-default-vpcs.py](./delete-default-vpcs.py) and rerun the script.
-
-```
-DRY_RUN = False
-```
+### Actions if Script Fails
 
 If the script for some reason does not succeed to delete the default VPC then the most likely cause is that other 
 resources have been created inside this VPC and block the deletion. 
