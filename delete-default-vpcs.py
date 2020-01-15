@@ -110,6 +110,9 @@ def delete_vpc(ec2_resource, vpc_id):
 
 
 def main():
+    account_id = boto3.client('sts').get_caller_identity().get('Account')
+    log.info("Account ID: {}".format(account_id))
+
     ec2_client_1 = boto3.client('ec2')
     regions = get_regions(ec2_client_1)
 
